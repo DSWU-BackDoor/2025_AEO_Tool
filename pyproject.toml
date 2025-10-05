@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aeo-security-tool"
+version = "1.0.0"
+description = "SBOM 기반 AEO, ISMS 통합 보안 검증 자동화 도구"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[project.scripts]
+aeo-tool = "aeo_tool.cli:main"
+
+# Black configuration
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+# isort configuration
+[tool.isort]
+profile = "black"
+line_length = 100
+
+# pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--cov=aeo_tool", "--cov-report=term-missing"]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["aeo_tool"]
+omit = ["*/tests/*", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
